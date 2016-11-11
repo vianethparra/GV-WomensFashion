@@ -142,7 +142,7 @@ html[xmlns] .flexslider .slides {
 .flex-direction-nav .flex-next {
   right: -50px;
 
-   background: url(../images/img-sprite.png) -184px -6px ;
+  background: url(../images/img-sprite.png) -184px -6px ;
   
 }
 .flexslider:hover .flex-direction-nav .flex-prev {

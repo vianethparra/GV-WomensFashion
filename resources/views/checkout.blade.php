@@ -5,7 +5,7 @@
 		<div class="container">
 			<div class="ckeckout-top">
 				<div class=" cart-items heading">
-					<h3>Checkout (**)</h3>
+					<h3>Checkout</h3>
 					<script>$(document).ready(function(c) {
 						$('.close1').on('click', function(c){
 							$('.cart-header').fadeOut('slow', function(c){
@@ -42,7 +42,7 @@
 					</ul>
 					<ul class="cart-header">
 						<div class="close1"> </div>
-							<li class="ring-in"><a href="#" ><img src="images/shoes-1.png" class="img-responsive" alt=""></a>
+							<li class="ring-in"><a href="#" ><img src="img/1.png" class="img-responsive" alt=""></a>
 							</li>
 							<li><span>Woo Dress</span></li>
 							<li><span>$ 290.00</span></li>

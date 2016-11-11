@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <title>GV womens fashion</title>
         <meta charset="utf-8">
-        <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="css/tiendabootstrap.css" rel="stylesheet" type="text/css" media="all" />
         <script src="js/jquery-1.11.0.min.js"></script>
         <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />  
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,22 +19,13 @@
         <div class="top-header">
             <div class="container">
                 <div class="top-header-main">
-                    <div class="col-md-4 top-header-left">
+                    <div class="col-md-4 col-md-offset-4">
+                        <a href="{{url('/')}}"><img src="img/logo-4.png" alt=""></a>
+                    </div>
+                    <div class="col-md-3 col-md-offset-1">
                         <div class="search-bar">
-                            <input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
+                            <input type="text" value="Buscar" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
                             <input type="submit" value="">
-                        </div>
-                    </div>
-                    <div class="col-md-4 top-header-middle">
-                        <a href="{{url('/')}}"><img src="images/logo-4.png" alt=""></a>
-                    </div>
-                    <div class="col-md-4 top-header-right">
-                        <div class="cart box_1">
-                            <a href="{{url('carrito')}}">
-                            <h3><div class="total">
-                                <span>$Variable</span>(* items)</div>
-                                <img src="images/cart-1.png"/>
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -44,11 +36,9 @@
                 <div class="top-nav">
                     <ul class="memenu skyblue">
                         <li class="active"><a href="{{url('/')}}">Inicio</a></li>
-
+                        <li class="grid"><a href="{{url('/catalogo')}}">Catalogo</a></li>
                         <li class="grid"><a href="{{url('/catalogo')}}">Ropa</a></li>
-                            
                         <li class="grid"><a href="{{url('/catalogo')}}">Calzado</a></li>
-                            
                         <li class="grid"><a href="{{url('/catalogo')}}">Accesorios</a></li>
                     </ul>
                 </div>
@@ -63,8 +53,8 @@
                     <div class="col-md-3 footer-left">
                         <h3>Acerca de</h3>
                         <ul>
-                            <li><a href="{{url('/QuienesSomos')}}">Quienes somos</a></li>
-                            <li><a href="{{url('/contacto')}}">Contacto</a></li>               
+                            <li><a href="{{url('/quienesSomos')}}">Quienes somos</a></li>
+                            <li><a href="{{url('/contacto')}}">Contacto</a></li> 
                         </ul>
                     </div>
                     <div class="col-md-3 footer-left">
@@ -72,13 +62,14 @@
                         <ul>
                             <li><a href="{{url('/cuenta')}}">Crear cuenta</a></li>
                             <li><a href="{{url('/log')}}">Acceso</a></li>
+                            <li><a href="{{url('/checkout')}}">Checkout</a></li> 
                         </ul>
                     </div>
                     <div class="col-md-3 footer-left">
                         <h3>Servicio al cliente</h3>
                         <ul>
                             <li><a href="{{url('/FAQ')}}">FAQ</a></li>
-                            <li><a href="#">Envios</a></li>                
+                            <li><a href="#">Pedidos</a></li>                
                         </ul>
                     </div>
                     <div class="col-md-3 footer-left">

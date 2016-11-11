@@ -19,8 +19,8 @@ class Controller extends BaseController
     	return view('catalogo');
     }
 
-    public function carrito(){
-    	return view('carrito');
+    public function checkout(){
+    	return view('checkout');
     }
 
     public function contacto(){
@@ -40,6 +40,10 @@ class Controller extends BaseController
     }
 
     public function somos(){
-        return view('/quienesSomos');
+        return view('quienesSomos');
+    }
+
+    public function articulo(){
+        return view('articulo');
     }
 }

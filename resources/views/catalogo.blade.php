@@ -6,13 +6,13 @@
                 <div class="col-md-3 product-left"> 
                     <div class="p-one simpleCart_shelfItem">                            
                             <a href="single.html">
-                                <img src="images/shoes-1.png" alt="" />
+                                <img src="img/1.png" alt="" />
                                 <div class="mask">
                                     <span>Preview</span>
                                 </div>
                             </a>
                         <h4>Articulo</h4>
-                        <p><a class="item_add" href="#"><i></i> <span class=" item_price">$100</span></a></p>
+                        <p><a class="item_add" href="{{url('/articulo')}}"><i></i> <span class=" item_price">$100</span></a></p>
                     </div>
                 </div>
             </div>

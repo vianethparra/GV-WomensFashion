@@ -9,7 +9,7 @@
 	<h3>¿Al hacer una compra, puedo mandarlo como regalo?</h5> 
 	<p>Actualmente no, pero en proximas versiones incluiremos una seccion para estas peticiones.</p>
 	
-	<h3>¿Como realizo la compra(checkout)?</h3>
+	<h3>¿Como realizo el pedido(checkout)?</h3>
 	<p>Una vez que hayas terminado de seleccionar articulos, haz click en el boton del carrito y te redireccionara a una pagina para realizar la compra.</p>
 
 	<h3>¿Hacen envios a todas partes?</h3>
@@ -18,9 +18,6 @@
 	<h3>¿Cuales son sus metodos de pago?</h3>
 	<p>Solo aceptamos a travez de tarjetas de credito.</p>
 
-	<h3>¿Como cancelo una orden?</h3>
-	<p>Dirigete a nuestro menu inferior, haz click en 'Envios', despues haz click en 'Cancelaciones'. Nuestra pagina te guiara para el proceso de cancelacion.</p>
-	
 	<h3>¿Que tan seguro es su sitio con mi informacion personal?</h3>
 	<p>Laravel papu :v</p>
 	
