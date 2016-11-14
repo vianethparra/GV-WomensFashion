@@ -29,6 +29,10 @@
 			<label for="stock">Stock</label>
 			<input type="number" min="0" class="form-control" name="stock" required>
 		</div>
+		<div class="form-group">
+			<label for="descripcion">Descripcion</label>
+			<input type="text" class="form-control" name="descripcion" required>
+		</div>
 		<input type="submit" class="btn btn-primary" value="Guardar">
 		<a href="{{url('/consultarArticulos')}}" class="btn btn-danger">Cancelar</a>
 	</form>

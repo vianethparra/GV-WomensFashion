@@ -3,31 +3,34 @@
     <head>
         <title>GV womens fashion</title>
         <meta charset="utf-8">
-        <link href="css/tiendabootstrap.css" rel="stylesheet" type="text/css" media="all" />
-        <script src="js/jquery-1.11.0.min.js"></script>
-        <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />  
+        <link href="{{ asset("css/tiendabootstrap.css")}}" rel="stylesheet" type="text/css" media="all" />
+        <script src="{{ asset("js/jquery-1.11.0.min.js")}}"></script>
+        <link href="{{ asset("css/style.css")}}" rel="stylesheet" type="text/css" media="all" />  
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
         <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
-        <script type="text/javascript" src="js/move-top.js"></script>
-        <script type="text/javascript" src="js/easing.js"></script>
-        <link href="css/memenu.css" rel="stylesheet" type="text/css" media="all" />
-        <script type="text/javascript" src="js/memenu.js"></script>
+        <script type="text/javascript" src="{{ asset("js/move-top.js")}}"></script>
+        <script type="text/javascript" src="{{ asset("js/easing.js")}}"></script>
+        <link href="{{ asset("css/memenu.css")}}" rel="stylesheet" type="text/css" media="all" />
+        <script type="text/javascript" src="{{ asset("js/memenu.js")}}"></script>
     </head>
     <body>
         <div class="top-header">
             <div class="container">
                 <div class="top-header-main">
                     <div class="col-md-4 col-md-offset-4">
-                        <a href="{{url('/')}}"><img src="img/logo-4.png" alt=""></a>
+                        <a href="{{url('/')}}"><img src="{{ asset("img/logo-4.png")}}" alt=""></a>
                     </div>
+                    <form action="{{url('/buscarArticulo')}}" method="POST">
+                    <input type="hidden" name="_token" value="{{csrf_token()}}">
                     <div class="col-md-3 col-md-offset-1">
                         <div class="search-bar">
-                            <input type="text" value="Buscar" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
+                            <input type="text" name="buscar" value="Buscar" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
                             <input type="submit" value="">
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -37,9 +40,9 @@
                     <ul class="memenu skyblue">
                         <li class="active"><a href="{{url('/')}}">Inicio</a></li>
                         <li class="grid"><a href="{{url('/catalogo')}}">Catalogo</a></li>
-                        <li class="grid"><a href="{{url('/catalogo')}}">Ropa</a></li>
-                        <li class="grid"><a href="{{url('/catalogo')}}">Calzado</a></li>
-                        <li class="grid"><a href="{{url('/catalogo')}}">Accesorios</a></li>
+                        <li class="grid"><a href="{{url('/catalogo/1')}}">Ropa</a></li>
+                        <li class="grid"><a href="{{url('/catalogo/2')}}">Calzado</a></li>
+                        <li class="grid"><a href="{{url('/catalogo/3')}}">Accesorios</a></li>
                     </ul>
                 </div>
             </div>
@@ -69,15 +72,15 @@
                         <h3>Servicio al cliente</h3>
                         <ul>
                             <li><a href="{{url('/FAQ')}}">FAQ</a></li>
-                            <li><a href="#">Pedidos</a></li>                
+                            <li><a href="{{url('/consultarPedido/4')}}">Pedidos</a></li>                
                         </ul>
                     </div>
                     <div class="col-md-3 footer-left">
                         <h3>Categorias</h3>
                         <ul>
-                            <li><a href="{{url('/catalogo')}}">Ropa</a></li>
-                            <li><a href="{{url('/catalogo')}}">Calzado</a></li>
-                            <li><a href="{{url('/catalogo')}}">Accesorios</a></li>        
+                            <li><a href="{{url('/catalogo/1')}}">Ropa</a></li>
+                            <li><a href="{{url('/catalogo/2')}}">Calzado</a></li>
+                            <li><a href="{{url('/catalogo/3')}}">Accesorios</a></li>        
                         </ul>
                     </div>
                 </div>

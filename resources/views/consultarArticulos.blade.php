@@ -14,6 +14,7 @@
 				<th>Categoria</th>
 				<th>Precio-MXN</th>
 				<th>Stock</th>
+				<th>Descripcion</th>
 				<th>Opciones</th>
 				<th>Comentarios</th>
 			</tr>
@@ -37,6 +38,7 @@
 					</td>
 					<td>${{$a->precio}}</td>
 					<td>{{$a->stock}}</td>
+					<td>{{$a->descripcion}}</td>
 					<td>
 						
 						<a href="{{url('/editar')}}/{{$num}}" class="btn btn-success btn-xs">Editar</a>

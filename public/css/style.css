@@ -591,7 +591,7 @@ ol.breadcrumb {
 	display: none;
 	position: absolute;
 	top: 44%;
-	left: 33%;
+	left: 42%;
 }
 .mask span{
 	background:#8c2830;
@@ -603,6 +603,7 @@ ol.breadcrumb {
 .product-left{
 	position:relative;
 	text-align:center;
+	padding-bottom: 20px;
 }
 .mask span:hover{
 	text-decoration:none;
@@ -673,7 +674,6 @@ a.add-cart:hover {
 	-ms-transition: 0.5s all;
 }
 .close1 {
-	background: url('../img/close-1.png') no-repeat 0px 0px;
 	cursor: pointer;
 	width: 28px;
 	height: 28px;
@@ -1794,7 +1794,89 @@ ul.product-categories li a {
 	font-size: 11px;
 	line-height: 1.6em;
 }
-}
+}	
 .agregar {
 	margin-top: 15%;
+}
+.detailBox {
+    width:500px;
+    height: auto;
+    border:1px solid #bbb; 
+    margin:10px auto;
+}
+.titleBox { 
+    background-color:#fdfdfd; 
+    padding:10px;
+}
+.titleBox label{ 
+  color:#444; 
+  margin:0; 
+  display:inline-block;
+}
+.commentBox { 
+    padding:10px;   
+    border-top:1px dotted #bbb;
+}
+.commentAnswerBox {  
+    padding:10px;
+}
+.commentBox .form-group:first-child, .actionBox .form-group:first-child { 
+    width:90%;
+}
+.commentAnswerBox .form-group:first-child, .actionBox .form-group:first-child {  
+    width:90%;
+}
+.commentBox .form-group:nth-child(2), .actionBox .form-group:nth-child(2) { 
+    width:18%;
+}
+.commentAnswerBox .form-group:nth-child(2), .actionBox .form-group:nth-child(2) {  
+    width:50%;
+}
+.actionBox .form-group * { 
+    margin-top:10px; 
+    width:100%;
+}
+.taskDescription { 
+    margin-top:10px 0;
+}
+.commentList { 
+    padding:0; 
+    list-style:none; 
+    min-height:100px;    
+}
+.commentList li { 
+    margin:0;
+    margin-bottom: 10px;
+    border-bottom:1px dotted #bbb;
+    padding-bottom: 10px;
+    margin-top:10px;
+}
+.commentList li > div { 
+    display:table-cell;
+}
+.commenterImage { 
+    width:30px; 
+    margin-right:5px; 
+    height:100%; 
+    float:left;
+}
+.commenterImage img { 
+    width:100%; 
+    border-radius:50%;
+}
+.commentText p { 
+    margin:0;
+}
+.sub-text { 
+    color:#aaa; 
+    font-family:verdana; 
+    font-size:12px;
+}
+.actionBox { 
+    border-top:1px dotted #bbb; 
+    padding:10px;
+}
+.comprar form input[type="submit"] {
+	width: 250px;
+	height: 50px
 }

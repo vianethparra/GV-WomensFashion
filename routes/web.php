@@ -12,24 +12,36 @@
 */
 
 Route::get('/', 'controller@principal');
-Route::get('/catalogo', 'controller@catalogo');
-Route::get('/checkout', 'controller@checkout');
+
 Route::get('/contacto', 'controller@contacto');
 Route::get('/cuenta', 'controller@cuenta');
+Route::post('/crearCuenta', 'controller@crearCuenta');
 Route::get('/log', 'controller@log');
+Route::post('/login', 'controller@login');
 Route::get('/FAQ', 'controller@faq');
 Route::get('/quienesSomos', 'controller@somos');
 
-Route::get('/articulo', 'controller@articulo');
-
+//-----------------------------------------------------------------
+Route::get('/catalogo', 'articuloController@catalogo');
+Route::get('/catalogo/{id}', 'articuloController@categoria');
+Route::get('/articulo/{id}', 'articuloController@articulo');
+Route::post('/buscarArticulo', 'articuloController@buscarArticulo');
+Route::post('/guardarComentario/{id}', 'articuloController@guardarComentario');
 //------------------------------------------------------------------
-
+Route::get('/checkout', 'pedidoController@checkout');
+Route::post('/agregarArticulo/{id}', 'pedidoController@agregarArticulo');
+Route::post('/dejarArticulo/{id}', 'pedidoController@dejarArticulo');
+Route::post('/realizarPedido/{id}', 'pedidoController@realizarPedido');
+Route::get('/consultarPedido/{id}', 'pedidoController@consultarPedido');
+//------------------------------------------------------------------
 Route::get('/admin', 'adminController@log');
 Route::post('/adminLog', 'adminController@adminlog');
 Route::get('/inicio', 'adminController@inicio');
 
 Route::get('/generarArticulo', 'adminController@generarArticulo');
 Route::post('/guardarArticulo', 'adminController@guardarArticulo');
+Route::get('/generarArticuloCSV', 'adminController@generarArticuloCSV');
+Route::post('/guardarArticuloCSV', 'adminController@guardarArticuloCSV');
 Route::get('/consultarArticulos', 'adminController@consultarArticulos');
 Route::get('/editar/{id}', 'adminController@editar');
 Route::post('/editarArticulo/{id}', 'adminController@editarArticulo');

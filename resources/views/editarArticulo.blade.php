@@ -41,6 +41,10 @@
 			<label for="stock">Stock</label>
 			<input type="number" class="form-control" name="stock" required value="{{$articulo->first()->stock}}">
 		</div>
+		<div class="form-group">
+			<label for="descripcion">Descripcion</label>
+			<input type="text" class="form-control" name="descripcion" required value="{{$articulo->first()->descripcion}}">
+		</div>
 		<input type="submit" class="btn btn-primary" value="Guardar">
 		<a href="{{url('/consultarArticulos')}}" class="btn btn-danger">Cancelar</a>
 	</form>

@@ -25,7 +25,7 @@
             <li><a href="{{url('/consultarArticulos')}}">Consultar</a></li>
             <li class="divider"></li>
             <li><a href="{{url('/generarArticulo')}}">Generar</a></li>
-            <li><a href="#">Generar-CSV</a></li>
+            <li><a href="{{url('/generarArticuloCSV')}}">Generar-CSV</a></li>
           </ul>
         </li>
         <li><a href="{{url('/consultarCategorias')}}">Categorias</a></li>

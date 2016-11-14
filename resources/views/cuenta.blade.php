@@ -2,7 +2,7 @@
 @section('contenido')
 <div class="account">
 	<div class="container"> 
-	<form action="#" method="POST">
+	<form action="{{url('/crearCuenta')}}" method="POST">
 	<input type="hidden" name="_token" value="{{csrf_token()}}">
 	<div class="col-md-6 col-md-offset-3 account-left">
 		<div class="account-top heading">

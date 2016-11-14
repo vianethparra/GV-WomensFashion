@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use DB;
+use Excel;
 use App\usuario;
 use App\articulo;
 use App\comentario;
@@ -9,6 +10,7 @@ use App\categoria;
 use App\pedido;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Illuminate\Support\Collection;
 
 class adminController extends Controller
 {
@@ -56,18 +58,39 @@ class adminController extends Controller
     public function generarArticulo(){
         return view('generarArticulo');
     }
+
+    public function generarArticuloCSV(){
+        return view('generarArticuloCSV');
+    }
+
+    public function guardarArticuloCSV(Request $data){
+        Excel::load($data->input('csv'))->each(function (Collection $csvLine) {
+            $nuevo = new articulo;
+            $nuevo->nombre=$csvLine->get('nombre');
+            $nuevo->categoria=$csvLine->get('categoria');
+            $nuevo->precio=$csvLine->get('precio');
+            $nuevo->stock=$csvLine->get('stock');
+            $nuevo->descripcion=$csvLine->get('descripcion');
+            $nuevo->save();
+        });
+
+        return Redirect('/consultarArticulos');
+    }
     
-    public function guardarArticulo(Request $request){
-        $nombre = $request->input('nombre');
-        $categoria = $request->input('categoria');
-        $precio = $request->input('precio');
-        $stock = $request->input('stock');
+    
+    public function guardarArticulo(Request $data){
+        $nombre = $data->input('nombre');
+        $categoria = $data->input('categoria');
+        $precio = $data->input('precio');
+        $stock = $data->input('stock');
+        $descripcion = $data->input('descripcion');
 
         $nuevo = new articulo;
         $nuevo->nombre=$nombre;
         $nuevo->categoria=$categoria;
         $nuevo->precio=$precio;
         $nuevo->stock=$stock;
+        $nuevo->descripcion=$descripcion;
         $nuevo->save();
 
         return redirect('/consultarArticulos');
@@ -87,7 +110,8 @@ class adminController extends Controller
             ->update(['nombre' => $data->input('nombre'),
                      'categoria' => $data->input('categoria'),
                      'precio' => $data->input('precio'),
-                     'stock' => $data->input('stock')]);
+                     'stock' => $data->input('stock'),
+                     'descripcion' => $data->input('descripcion')]);
 
         return Redirect('/consultarArticulos');
     }
@@ -95,10 +119,10 @@ class adminController extends Controller
     public function comentarios($id){
         $comentario = DB::table('comentario AS c')
             ->join('articulo AS a', 'a.id_articulo', '=', 'c.id_articulo')
-            ->join('usuario AS u', 'u.id_usuario', '=', 'c.id_usuario')
             ->where('c.id_articulo', '=', $id)
-            ->select('c.id_comentario', 'c.id_articulo', 'a.nombre AS nombre', 'u.nombre AS usuario', 'c.comentario')
+            ->select('c.id_comentario', 'c.id_articulo', 'a.nombre AS nombre', 'c.usuario', 'c.comentario')
             ->get();
+
 
         return view('comentarios', compact('comentario'));
     }

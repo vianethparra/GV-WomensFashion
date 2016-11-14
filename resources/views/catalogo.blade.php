@@ -1,20 +1,23 @@
 @extends('principal')
 @section('contenido')
-    <div class="shoes"> 
+    <div class="shoes">
         <div class="container"> 
             <div class="product-one">
+            @forelse($articulo as $a)
                 <div class="col-md-3 product-left"> 
-                    <div class="p-one simpleCart_shelfItem">                            
-                            <a href="single.html">
-                                <img src="img/1.png" alt="" />
+                    <div class="p-one simpleCart_shelfItem">               
+                            <a href="{{url('/articulo')}}/{{$a->id_articulo}}">
+                                <img src="{{ asset('img/'.$a->id_articulo.'.png')}}" alt="" />
                                 <div class="mask">
-                                    <span>Preview</span>
+                                    <span>Ver</span>
                                 </div>
                             </a>
-                        <h4>Articulo</h4>
-                        <p><a class="item_add" href="{{url('/articulo')}}"><i></i> <span class=" item_price">$100</span></a></p>
+                        <h4>{{$a->nombre}}</h4>
+                        <p><i></i> <span class=" item_price">${{$a->precio}}</span></p>
                     </div>
                 </div>
+            @empty
+            @endforelse  
             </div>
         </div>
     </div>
