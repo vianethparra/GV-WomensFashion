@@ -19,7 +19,16 @@
         <div class="top-header">
             <div class="container">
                 <div class="top-header-main">
-                    <div class="col-md-4 col-md-offset-4">
+                    <div class="col-md-4">
+                        @if (!Auth::guest())
+                        {{ Auth::user()->name }}
+                        <form id="logout-form" action="{{ url('/logout') }}" method="POST">
+                            {{ csrf_field() }}
+                            <input type="submit" value="Logout">
+                        </form>
+                        @endif
+                    </div>
+                    <div class="col-md-4">
                         <a href="{{url('/')}}"><img src="{{ asset("img/logo-4.png")}}" alt=""></a>
                     </div>
                     <form action="{{url('/buscarArticulo')}}" method="POST">
@@ -40,9 +49,9 @@
                     <ul class="memenu skyblue">
                         <li class="active"><a href="{{url('/')}}">Inicio</a></li>
                         <li class="grid"><a href="{{url('/catalogo')}}">Catalogo</a></li>
-                        <li class="grid"><a href="{{url('/catalogo/1')}}">Ropa</a></li>
-                        <li class="grid"><a href="{{url('/catalogo/2')}}">Calzado</a></li>
-                        <li class="grid"><a href="{{url('/catalogo/3')}}">Accesorios</a></li>
+                        @foreach($categoria as $c)
+                            <li class="grid"><a href="{{url('/catalogo')}}/{{$c->id_categoria}}">{{$c->categoria}}</a></li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -63,24 +72,30 @@
                     <div class="col-md-3 footer-left">
                         <h3>Cuenta</h3>
                         <ul>
-                            <li><a href="{{url('/cuenta')}}">Crear cuenta</a></li>
-                            <li><a href="{{url('/log')}}">Acceso</a></li>
-                            <li><a href="{{url('/checkout')}}">Checkout</a></li> 
+                            @if (Auth::guest())
+                                <li><a href="{{url('/cuenta')}}">Crear cuenta</a></li>
+                                <li><a href="{{url('/log')}}">Iniciar Sesion</a></li>
+                            @else
+                                <li><a href="{{url('/checkout')}}">Checkout</a></li> 
+                            @endif
+                            
                         </ul>
                     </div>
                     <div class="col-md-3 footer-left">
                         <h3>Servicio al cliente</h3>
                         <ul>
                             <li><a href="{{url('/FAQ')}}">FAQ</a></li>
-                            <li><a href="{{url('/consultarPedido/4')}}">Pedidos</a></li>                
+                            @if (!Auth::guest())
+                                <li><a href="{{url('/consultarPedido/'.Auth::user()->id)}}">Pedidos</a></li>
+                            @endif               
                         </ul>
                     </div>
                     <div class="col-md-3 footer-left">
                         <h3>Categorias</h3>
                         <ul>
-                            <li><a href="{{url('/catalogo/1')}}">Ropa</a></li>
-                            <li><a href="{{url('/catalogo/2')}}">Calzado</a></li>
-                            <li><a href="{{url('/catalogo/3')}}">Accesorios</a></li>        
+                            @foreach($categoria as $c)
+                                <li><a href="{{url('/catalogo')}}/{{$c->id_categoria}}">{{$c->categoria}}</a></li>
+                            @endforeach       
                         </ul>
                     </div>
                 </div>

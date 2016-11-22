@@ -22,7 +22,7 @@
 				</tr>
 			@empty
 			<tr>
-				<td>No hay pedidos del usuario {{$p->nombre}}</td>
+				<td>No hay pedidos del usuario</td>
 			</tr>
 			@endforelse
 		</tbody>

@@ -12,15 +12,14 @@
 */
 
 Route::get('/', 'controller@principal');
-
 Route::get('/contacto', 'controller@contacto');
+
 Route::get('/cuenta', 'controller@cuenta');
-Route::post('/crearCuenta', 'controller@crearCuenta');
 Route::get('/log', 'controller@log');
-Route::post('/login', 'controller@login');
+
 Route::get('/FAQ', 'controller@faq');
 Route::get('/quienesSomos', 'controller@somos');
-
+Route::get('/error404', 'articuloController@error404');
 //-----------------------------------------------------------------
 Route::get('/catalogo', 'articuloController@catalogo');
 Route::get('/catalogo/{id}', 'articuloController@categoria');
@@ -52,3 +51,6 @@ Route::get('/eliminarComentario/{id}/{art}', 'adminController@eliminarComentario
 
 Route::get('/consultarCategorias', 'adminController@categorias');
 Route::get('/consultarPedidos', 'adminController@pedidos');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');

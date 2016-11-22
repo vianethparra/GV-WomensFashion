@@ -44,9 +44,15 @@
 							<input type="number" value="1" min="1" max="{{$articulo->first()->stock}}" name="cantidad">
 						</div>
 						<div class="clearfix"> </div>
+						@if($articulo->first()->stock==0 OR Auth::guest())
+						<div class="single-but agregar">
+							<input type="submit" value="Agregar" disabled>
+						</div>
+						@else
 						<div class="single-but agregar">
 							<input type="submit" value="Agregar">
 						</div>
+						@endif
 					</div>
 					<div class="clearfix"></div>
 					</div>
@@ -85,9 +91,14 @@
     <div class="actionBox">
         <form action="{{url('/guardarComentario')}}/{{$articulo->first()->id_articulo}}" method="POST">
 		<input type="hidden" name="_token" value="{{csrf_token()}}">
+		@if(Auth::guest())
+		<div class="form-group">
+			<label for="usuario">Inicie sesion para hacer un comentario</label>
+		</div>
+		@else
 		<div class="form-group">
 			<label for="usuario">Usuario:</label>
-			<input type="text" class="form-control" name="usuario" required>
+			<input type="text" class="form-control" value="{{Auth::user()->name}}" disabled>
 		</div>       
         <div class="form-group">                             
 	        <label for="comentario">Comentario:</label>
@@ -97,7 +108,8 @@
         	<div class="single-but">              
         		<input type="submit" class="btn btn-primary" value="Comentar">
         	</div>
-        </div>         
+        </div> 
+        @endif       
     </div>
 </div>
 </div>

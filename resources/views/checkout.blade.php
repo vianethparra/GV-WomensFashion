@@ -45,9 +45,11 @@
 				</div>
 				</div>
 				<div class="col-md-3 col-md-offset-9 contact-left comprar">
-					<form action="{{url('/realizarPedido')}}/2" method="POST">
+					<form action="{{url('/realizarPedido')}}/{{Auth::user()->id}}" method="POST">
 					<input type="hidden" name="_token" value="{{csrf_token()}}">
-					<input type="submit" value="Comprar">
+					@if(!$articulo->count()==0)
+						<input type="submit" value="Comprar">
+					@endif
 					</form>
 				</div>
 			</div>  

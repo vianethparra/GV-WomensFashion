@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use DB;
 use App\articulo;
 use App\categoria;
@@ -12,8 +13,9 @@ class articuloController extends Controller
 {
     public function catalogo(){
         $articulo = articulo::all();
+        $categoria = categoria::all();
 
-    	return view('catalogo', compact('articulo'));
+    	return view('catalogo', compact('articulo', 'categoria'));
     }
 
     public function categoria($id){
@@ -21,17 +23,27 @@ class articuloController extends Controller
             ->where('categoria', '=', $id)
             ->get();
 
-        return view('catalogo', compact('articulo'));
+        $categoria = categoria::all();
+        return view('catalogo', compact('articulo', 'categoria'));
     }
 
     public function buscarArticulo(Request $data){
         $nombre=$data->input('buscar');
         
+        if ($nombre=='Buscar') {
+            return Redirect('/catalogo');
+        }
+
         $articulo=DB::table('articulo')
             ->where('nombre', 'LIKE', '%'.$nombre.'%')
             ->get();
 
-        return view('catalogo', compact('articulo'));
+        if ($articulo->count()==0) {
+             return Redirect('/error404');
+        }
+
+        $categoria = categoria::all();
+        return view('catalogo', compact('articulo', 'categoria'));
     }
 
     public function articulo($id){ 
@@ -39,15 +51,18 @@ class articuloController extends Controller
             ->where('id_articulo', '=', $id)
             ->get();
 
-        $comentario = DB::table('comentario')
+        $comentario = DB::table('comentario AS c')
+            ->join('users AS u', 'u.id', '=', 'c.usuario')
             ->where('id_articulo', '=', $id)
+            ->select('u.name AS usuario', 'c.comentario', 'c.created_at')
             ->get();
 
-        return view('articulo', compact('articulo', 'comentario'));
+        $categoria = categoria::all();
+        return view('articulo', compact('articulo', 'comentario', 'categoria'));
     }
 
     public function guardarComentario($id, Request $data){
-        $usuario = $data->input('usuario');
+        $usuario = Auth::user()->id;
         $comentario = $data->input('comentario');
 
         $nuevo = new comentario;
@@ -57,5 +72,10 @@ class articuloController extends Controller
         $nuevo->save();
 
         return Redirect('/articulo/'.$id);
+    }
+
+    public function error404(){
+        $categoria = categoria::all();
+        return view('error404', compact('categoria'));
     }
 }

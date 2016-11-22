@@ -5,21 +5,27 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use DB;
 use App\pedido;
 use App\carrito;
 use App\usuario;
+use App\categoria;
 
 class pedidoController extends Controller
 {
 
 	public function checkout(){
+        $auth_id = Auth::id();
+
 		$articulo = DB::table('carrito AS c')
             ->join('articulo AS a', 'a.id_articulo', '=', 'c.id_articulo')
-            ->select('c.id_articulo', 'c.cantidad', 'a.nombre AS nombre', 'a.precio AS precio', 'a.stock AS stock')
+            ->where('c.id_usuario', '=', $auth_id)
+            ->select('c.id_articulo', 'c.cantidad', 'a.nombre AS nombre', 'a.precio AS precio')
             ->get();
 
-    	return view('checkout', compact('articulo'));
+        $categoria = categoria::all();
+    	return view('checkout', compact('articulo', 'categoria'));
     }
 
     public function agregarArticulo($id, Request $data){
@@ -28,7 +34,10 @@ class pedidoController extends Controller
         	->where('id_articulo', '=', $id)
         	->get();
 
+        $auth_id = Auth::id();
+
         $nuevo = new carrito;
+        $nuevo->id_usuario=$auth_id;
         $nuevo->id_articulo=$id;
         $nuevo->cantidad=$cantidad;
         $nuevo->subtotal=($precio->first()->precio*$cantidad);
@@ -42,8 +51,14 @@ class pedidoController extends Controller
     }
 
     public function dejarArticulo($id){
+        $auth_id = Auth::id();
+
     	$articulo = DB::table('carrito')
-    		->where('id_articulo', '=', $id)
+    		->where(function($query) use($id, $auth_id)
+            {
+                $query->where('id_articulo', '=', $id)
+                      ->where('id_usuario', '=', $auth_id);
+            })
     		->get();
 
     	DB::table('articulo')
@@ -51,20 +66,21 @@ class pedidoController extends Controller
             ->increment('stock', $articulo->first()->cantidad);
 
         DB::table('carrito')
-            ->where('id_articulo', '=', $id)
+            ->where(function($query) use($id, $auth_id)
+            {
+                $query->where('id_articulo', '=', $id)
+                      ->where('id_usuario', '=', $auth_id);
+            })
             ->delete();
 
     	return back();
     }
 
     public function realizarPedido($id){
-    	$cont = carrito::all();
-
-    	if($cont->count()==0) {
-    		return back();
-    	}
+        $auth_id = Auth::id();
 
     	$total = DB::table('carrito')
+            ->where('id_usuario', '=', $auth_id)
     		->sum('subtotal');
 
     	$nuevo = new pedido;
@@ -73,18 +89,20 @@ class pedidoController extends Controller
         $nuevo->save();
 
         DB::table('carrito')
+            ->where('id_usuario', '=', $auth_id)
             ->delete();
 
-        return Redirect('/checkout');
+        return Redirect('/consultarPedido/'.$auth_id);
     }
 
     public function consultarPedido($id){
     	$pedidos = DB::table('pedido AS p')
-            ->join('usuario AS u', 'u.id_usuario', '=', 'p.id_usuario')
+            ->join('users AS u', 'u.id', '=', 'p.id_usuario')
             ->where('p.id_usuario', '=', $id)
-            ->select('p.id_pedido', 'p.created_at', 'p.id_usuario', 'p.total', 'u.nombre AS nombre')
+            ->select('p.id_pedido', 'p.created_at', 'p.id_usuario', 'p.total', 'u.name AS nombre')
             ->get();
 
-        return view('consultarPedido', compact('pedidos'));
+        $categoria = categoria::all();
+        return view('consultarPedido', compact('pedidos', 'categoria'));
     }
 }

@@ -26,11 +26,11 @@ class adminController extends Controller
     	$usuario = $data->input('user');
     	$contra = $data->input('contra');
 
-    	$admin=DB::table('usuario')
+    	$admin=DB::table('users')
         	->where(function($query) use($usuario, $contra)
             {
-                $query->where('contrasena', '=', $contra)
-                      ->where('nombre', '=', $usuario)
+                $query->where('password', '=', $contra)
+                      ->where('name', '=', $usuario)
                       ->where('tipo', '=', 1);
             })
             ->get();
@@ -119,8 +119,9 @@ class adminController extends Controller
     public function comentarios($id){
         $comentario = DB::table('comentario AS c')
             ->join('articulo AS a', 'a.id_articulo', '=', 'c.id_articulo')
+            ->join('users AS u', 'u.id', '=', 'c.usuario')
             ->where('c.id_articulo', '=', $id)
-            ->select('c.id_comentario', 'c.id_articulo', 'a.nombre AS nombre', 'c.usuario', 'c.comentario')
+            ->select('c.id_comentario', 'c.id_articulo', 'a.nombre AS nombre', 'u.name AS usuario', 'c.comentario')
             ->get();
 
 
@@ -143,8 +144,8 @@ class adminController extends Controller
 
     public function pedidos(){
         $pedidos = DB::table('pedido AS p')
-            ->join('usuario AS u', 'u.id_usuario', '=', 'p.id_usuario')
-            ->select('p.id_pedido', 'p.created_at', 'p.id_usuario', 'p.total', 'u.nombre AS nombre')
+            ->join('users AS u', 'u.id', '=', 'p.id_usuario')
+            ->select('p.id_pedido', 'p.created_at', 'p.id_usuario', 'p.total', 'u.name AS nombre')
             ->get();
 
         return view('consultarPedidos', compact('pedidos'));

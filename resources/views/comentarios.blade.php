@@ -1,7 +1,11 @@
 @extends('adminPrincipal')
 @section('encabezado')
-	@forelse($comentario as $key=>$c)
-	<h2>Comentarios del articulo "{{$comentario->first()->nombre}}"</h2>
+	@if($comentario->count()==0)
+		<h2>Comentarios</h2>
+	@else
+		<h2>Comentarios del articulo "{{$comentario->first()->nombre}}"</h2>
+	@endif
+	
 @stop
 
 @section('contenido')
@@ -15,7 +19,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			
+			@forelse($comentario as $key=>$c)
 				<tr>
 					<td>{{++$key}}</td>
 					<td>{{$c->usuario}}</td>
@@ -24,13 +28,11 @@
 						<a href="{{url('/eliminarComentario')}}/{{$c->id_comentario}}/{{$c->id_articulo}}" class="btn btn-danger btn-xs">Eliminar</a>
 					</td>
 				</tr>
-			
-			
+			@empty
+				<h2>No hay comentarios del articulo</h2>
+			@endforelse	
 		</tbody>
 	</table>
 	<a href="{{url('/consultarArticulos')}}" class="btn btn-danger">Volver</a>
-	@empty
-	<h2>No hay comentarios del articulo</h2>
-	<a href="{{url('/consultarArticulos')}}" class="btn btn-danger">Volver</a>
-	@endforelse
+	
 @stop
