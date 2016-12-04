@@ -21,11 +21,22 @@
                 <div class="top-header-main">
                     <div class="col-md-4">
                         @if (!Auth::guest())
-                        {{ Auth::user()->name }}
+                        <div class="nombre">
+                            {{ Auth::user()->name }}
+                        </div>
+                        <div class="contact-left">
                         <form id="logout-form" action="{{ url('/logout') }}" method="POST">
                             {{ csrf_field() }}
                             <input type="submit" value="Logout">
                         </form>
+                        </div>
+                        @else
+                        <div class="contact-left">
+                        <form id="loging-form" action="{{ url('/log') }}" method="GET">
+                            {{ csrf_field() }}
+                            <input type="submit" value="Loging">
+                        </form>
+                        </div>
                         @endif
                     </div>
                     <div class="col-md-4">
@@ -35,7 +46,7 @@
                     <input type="hidden" name="_token" value="{{csrf_token()}}">
                     <div class="col-md-3 col-md-offset-1">
                         <div class="search-bar">
-                            <input type="text" name="buscar" value="Buscar" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
+                            <input type="text" name="buscar" value="Buscar" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Buscar';}">
                             <input type="submit" value="">
                         </div>
                     </div>
@@ -52,6 +63,10 @@
                         @foreach($categoria as $c)
                             <li class="grid"><a href="{{url('/catalogo')}}/{{$c->id_categoria}}">{{$c->categoria}}</a></li>
                         @endforeach
+                        @if(!Auth::guest())
+                        <li><a href="{{url('/consultarPedido/'.Auth::user()->id)}}">Pedidos</a></li>
+                        <li class="grid"><a href="{{url('/checkout')}}"><img src="{{ asset("img/cart-2.png")}}" alt=""></a></li>
+                        @endif
                     </ul>
                 </div>
             </div>

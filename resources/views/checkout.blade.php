@@ -40,7 +40,7 @@
 					</ul>
 					</form>
 					@empty
-						<h2>Carrito vacio</h2>	
+						<center><h2>Carrito vacio</h2></center>
 					@endforelse
 				</div>
 				</div>

@@ -52,5 +52,5 @@ Route::get('/eliminarComentario/{id}/{art}', 'adminController@eliminarComentario
 Route::get('/consultarCategorias', 'adminController@categorias');
 Route::get('/consultarPedidos', 'adminController@pedidos');
 Auth::routes();
-
+Route::post('/send', 'EmailController@send');
 Route::get('/home', 'HomeController@index');

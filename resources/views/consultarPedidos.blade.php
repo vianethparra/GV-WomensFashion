@@ -24,7 +24,7 @@
 				</tr>
 			@empty
 			<tr>
-				<td>No hay pedidos</td>
+				<center><td>No hay pedidos</td></center>
 			</tr>
 			@endforelse
 		</tbody>
