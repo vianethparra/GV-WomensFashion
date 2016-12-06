@@ -26,7 +26,7 @@ class Controller extends BaseController
         return view('contact', compact('categoria'));
     }
 
-    public function cuenta(){
+    public function registroUsuario(){
         return view('auth/register');
     }
 

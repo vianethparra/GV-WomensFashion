@@ -15,20 +15,24 @@ use App\categoria;
 class pedidoController extends Controller
 {
 
-	public function checkout(){
+	public function pedido(){
         $auth_id = Auth::id();
 
 		$articulo = DB::table('carrito AS c')
             ->join('articulo AS a', 'a.id_articulo', '=', 'c.id_articulo')
             ->where('c.id_usuario', '=', $auth_id)
-            ->select('c.id_articulo', 'c.cantidad', 'a.nombre AS nombre', 'a.precio AS precio')
+            ->select('c.id_articulo', 'c.cantidad', 'c.subtotal','a.nombre AS nombre', 'a.precio AS precio')
             ->get();
 
+        $total = DB::table('carrito')
+            ->where('id_usuario', '=', $auth_id)
+            ->sum('subtotal');
+
         $categoria = categoria::all();
-    	return view('checkout', compact('articulo', 'categoria'));
+    	return view('checkout', compact('articulo', 'categoria', 'total'));
     }
 
-    public function agregarArticulo($id, Request $data){
+    public function anadirAlCarrito($id, Request $data){
         $cantidad = $data->input('cantidad');
         $precio = DB::table('articulo')
         	->where('id_articulo', '=', $id)
@@ -36,12 +40,46 @@ class pedidoController extends Controller
 
         $auth_id = Auth::id();
 
-        $nuevo = new carrito;
-        $nuevo->id_usuario=$auth_id;
-        $nuevo->id_articulo=$id;
-        $nuevo->cantidad=$cantidad;
-        $nuevo->subtotal=($precio->first()->precio*$cantidad);
-        $nuevo->save();
+        $existe = DB::table('carrito')
+            ->where(function($query) use($id, $auth_id)
+            {
+                $query->where('id_articulo', '=', $id)
+                      ->where('id_usuario', '=', $auth_id);
+            })
+            ->get();
+
+        if ($existe->count()==0) {
+            $nuevo = new carrito;
+            $nuevo->id_usuario=$auth_id;
+            $nuevo->id_articulo=$id;
+            $nuevo->cantidad=$cantidad;
+            $nuevo->subtotal=($precio->first()->precio*$cantidad);
+            $nuevo->save();
+        }else{
+            DB::table('carrito')
+            ->where(function($query) use($id, $auth_id)
+            {
+                $query->where('id_articulo', '=', $id)
+                      ->where('id_usuario', '=', $auth_id);
+            })
+            ->increment('cantidad', $cantidad);
+
+            $nuevo = DB::table('carrito')
+            ->where(function($query) use($id, $auth_id)
+            {
+                $query->where('id_articulo', '=', $id)
+                      ->where('id_usuario', '=', $auth_id);
+            })
+            ->get();
+
+            DB::table('carrito')
+            ->where(function($query) use($id, $auth_id, $nuevo)
+            {
+                $query->where('id_articulo', '=', $id)
+                      ->where('id_usuario', '=', $auth_id);
+            })
+            ->update(['subtotal' => $precio->first()->precio*$nuevo->first()->cantidad]);
+        }
 
         DB::table('articulo')
             ->where('id_articulo', '=', $id)
@@ -50,7 +88,7 @@ class pedidoController extends Controller
         return back();
     }
 
-    public function dejarArticulo($id){
+    public function cancelarProducto($id){
         $auth_id = Auth::id();
 
     	$articulo = DB::table('carrito')
@@ -76,7 +114,7 @@ class pedidoController extends Controller
     	return back();
     }
 
-    public function realizarPedido($id){
+    public function confirmarPedido($id){
         $auth_id = Auth::id();
 
     	$total = DB::table('carrito')

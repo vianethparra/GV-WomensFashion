@@ -21,11 +21,12 @@
 						<li>Nombre</li>		
 						<li>Precio</li>
 						<li>Cantidad</li>
+						<li>Subtotal</li>
 
 						<div class="clearfix"> </div>
 					</ul>
 					@forelse($articulo as $a)
-					<form action="{{url('/dejarArticulo')}}/{{$a->id_articulo}}" method="POST">
+					<form action="{{url('/cancelarProducto')}}/{{$a->id_articulo}}" method="POST">
 					<input type="hidden" name="_token" value="{{csrf_token()}}">
 					<ul class="cart-header">
 						<div class="close1">
@@ -36,6 +37,7 @@
 							<li><span>{{$a->nombre}}</span></li>
 							<li><span>${{$a->precio}}</span></li>
 							<li><span>{{$a->cantidad}}</span></li>
+							<li><span>${{$a->subtotal}}</span></li>
 						<div class="clearfix"> </div>
 					</ul>
 					</form>
@@ -45,9 +47,11 @@
 				</div>
 				</div>
 				<div class="col-md-3 col-md-offset-9 contact-left comprar">
-					<form action="{{url('/realizarPedido')}}/{{Auth::user()->id}}" method="POST">
+
+					<form action="{{url('/confirmarPedido')}}/{{Auth::user()->id}}" method="POST">
 					<input type="hidden" name="_token" value="{{csrf_token()}}">
 					@if(!$articulo->count()==0)
+						<center><h3>${{$total}}</h3></center>
 						<input type="submit" value="Comprar">
 					@endif
 					</form>

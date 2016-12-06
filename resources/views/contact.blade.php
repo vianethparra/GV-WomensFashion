@@ -7,7 +7,7 @@
 			</div>
 			<br>
 			<div class="col-md-6 contact-left"> 
-				<form action="#" method="POST">
+				<form action="{{url('#')}}" method="POST">
 				<input type="hidden" name="_token" value="{{csrf_token()}}">
 					<input type="text" placeholder="Nombre" name="nombre" required>
 					<input type="text" placeholder="E-mail" name="email" required>

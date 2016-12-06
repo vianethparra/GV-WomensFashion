@@ -11,14 +11,14 @@ use App\comentario;
 
 class articuloController extends Controller
 {
-    public function catalogo(){
+    public function mostrarCatalogo(){
         $articulo = articulo::all();
         $categoria = categoria::all();
 
     	return view('catalogo', compact('articulo', 'categoria'));
     }
 
-    public function categoria($id){
+    public function por_Categoria($id){
         $articulo = DB::table('articulo')
             ->where('categoria', '=', $id)
             ->get();
@@ -27,11 +27,11 @@ class articuloController extends Controller
         return view('catalogo', compact('articulo', 'categoria'));
     }
 
-    public function buscarArticulo(Request $data){
+    public function por_Articulo(Request $data){
         $nombre=$data->input('buscar');
         
         if ($nombre=='Buscar') {
-            return Redirect('/catalogo');
+            return Redirect('/mostrarCatalogo');
         }
 
         $articulo=DB::table('articulo')
@@ -61,7 +61,7 @@ class articuloController extends Controller
         return view('articulo', compact('articulo', 'comentario', 'categoria'));
     }
 
-    public function guardarComentario($id, Request $data){
+    public function escribircomentario($id, Request $data){
         $usuario = Auth::user()->id;
         $comentario = $data->input('comentario');
 

@@ -28,7 +28,7 @@
 							});
 						</script>
 					</div>
-					<form action="{{url('/agregarArticulo')}}/{{$articulo->first()->id_articulo}}" method="POST">
+					<form action="{{url('/anadirAlCarrito')}}/{{$articulo->first()->id_articulo}}" method="POST">
 					<input type="hidden" name="_token" value="{{csrf_token()}}">
 					<div class="col-md-7 single-top-right">
 					<div class="details-left-info">
@@ -89,7 +89,7 @@
     </div>
 
     <div class="actionBox">
-        <form action="{{url('/guardarComentario')}}/{{$articulo->first()->id_articulo}}" method="POST">
+        <form action="{{url('/escribirComentario')}}/{{$articulo->first()->id_articulo}}" method="POST">
 		<input type="hidden" name="_token" value="{{csrf_token()}}">
 		@if(Auth::guest())
 		<div class="form-group">

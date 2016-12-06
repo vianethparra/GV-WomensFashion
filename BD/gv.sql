@@ -19,8 +19,8 @@ CREATE TABLE `articulo` (
   `calificacion` int(11) NOT NULL DEFAULT '0',
   `contador` int(11) NOT NULL DEFAULT '1',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
 
 --
 -- Dumping data for table `articulo`
@@ -101,8 +101,8 @@ CREATE TABLE `carrito` (
   `cantidad` int(11) NOT NULL,
   `subtotal` decimal(12,2) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
 
 -- --------------------------------------------------------
 
@@ -113,7 +113,7 @@ CREATE TABLE `carrito` (
 CREATE TABLE `categoria` (
   `id_categoria` int(11) NOT NULL,
   `categoria` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+);
 
 --
 -- Dumping data for table `categoria`
@@ -136,8 +136,8 @@ CREATE TABLE `comentario` (
   `usuario` int(11) NOT NULL,
   `comentario` varchar(2000) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
 
 --
 -- Dumping data for table `comentario`
@@ -157,15 +157,15 @@ CREATE TABLE `pedido` (
   `id_usuario` int(11) NOT NULL,
   `total` decimal(10,2) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
 
 --
 -- Dumping data for table `pedido`
 --
 
 INSERT INTO `pedido` (`id_pedido`, `id_usuario`, `total`, `created_at`, `updated_at`) VALUES
-(1, 2, '200.00', '2016-11-09 16:01:34', '0000-00-00 00:00:00'),
+(1, 2, '200.00', '2016-11-09 16:01:34', '2016-11-14 05:02:29'),
 (2, 2, '3630.00', '2016-11-14 05:02:29', '2016-11-14 05:02:29'),
 (3, 4, '1815.00', '2016-11-22 04:20:56', '2016-11-22 04:20:56'),
 (4, 5, '1815.00', '2016-11-22 04:22:31', '2016-11-22 04:22:31'),
@@ -183,7 +183,7 @@ INSERT INTO `pedido` (`id_pedido`, `id_usuario`, `total`, `created_at`, `updated
 CREATE TABLE `tipo` (
   `id_tipo` int(11) NOT NULL,
   `tipo` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+);
 
 --
 -- Dumping data for table `tipo`
@@ -207,16 +207,16 @@ CREATE TABLE `users` (
   `remember_token` varchar(200) DEFAULT NULL,
   `tipo` int(1) NOT NULL DEFAULT '2',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `tipo`, `created_at`, `updated_at`) VALUES
-(1, 'root', 'leo_spider2@hotmail.com', '12345', '', 1, '2016-11-09 16:39:58', '0000-00-00 00:00:00'),
-(2, 'luis', 'luis@hotmail.com', '12345', '', 2, '2016-11-09 16:01:15', '0000-00-00 00:00:00'),
+(1, 'root', 'leo_spider2@hotmail.com', '12345', '', 1, '2016-11-09 16:39:58', '2016-11-14 00:46:05'),
+(2, 'luis', 'luis@hotmail.com', '12345', '', 2, '2016-11-09 16:01:15', '2016-11-14 00:46:05'),
 (3, 'Victor Gallardo', 'shinigv@gmail.com', 'contra', '', 2, '2016-11-14 00:46:05', '2016-11-14 00:46:05'),
 (4, 'Enrique', 'ana.serazac@gmail.com', '$2y$10$gaIwIj9BGMWsRuS.xwtmPedWswmtoMitci0PgEsFIwSwJTD4y.qf.', 'DT93a9r4ijl8eZVmBRWLiqKSWl0AiqysEVlGSZfYGPJFJabZ7Au6k4PYNRFF', 2, '2016-11-21 21:19:05', '2016-11-22 04:19:05'),
 (5, 'Angy', 'angela@g.com', '$2y$10$y0U9KesmD7J0i00wPltWVuF4ZyDNEuojXghgH/ewcuA3H2MEnnXpG', 'OoA2fvGSR4Dum6SwWrUJV3ku1z6EUjmg4p2PI6V4EJR566WYv22kteXXwWID', 2, '2016-11-22 03:33:29', '2016-11-22 10:33:29'),

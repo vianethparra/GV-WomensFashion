@@ -34,7 +34,7 @@
                         <div class="contact-left">
                         <form id="loging-form" action="{{ url('/log') }}" method="GET">
                             {{ csrf_field() }}
-                            <input type="submit" value="Loging">
+                            <input type="submit" value="Login">
                         </form>
                         </div>
                         @endif
@@ -42,7 +42,7 @@
                     <div class="col-md-4">
                         <a href="{{url('/')}}"><img src="{{ asset("img/logo-4.png")}}" alt=""></a>
                     </div>
-                    <form action="{{url('/buscarArticulo')}}" method="POST">
+                    <form action="{{url('/por_Articulo')}}" method="POST">
                     <input type="hidden" name="_token" value="{{csrf_token()}}">
                     <div class="col-md-3 col-md-offset-1">
                         <div class="search-bar">
@@ -59,13 +59,13 @@
                 <div class="top-nav">
                     <ul class="memenu skyblue">
                         <li class="active"><a href="{{url('/')}}">Inicio</a></li>
-                        <li class="grid"><a href="{{url('/catalogo')}}">Catalogo</a></li>
+                        <li class="grid"><a href="{{url('/mostrarCatalogo')}}">Catalogo</a></li>
                         @foreach($categoria as $c)
-                            <li class="grid"><a href="{{url('/catalogo')}}/{{$c->id_categoria}}">{{$c->categoria}}</a></li>
+                            <li class="grid"><a href="{{url('/por_Categoria')}}/{{$c->id_categoria}}">{{$c->categoria}}</a></li>
                         @endforeach
                         @if(!Auth::guest())
                         <li><a href="{{url('/consultarPedido/'.Auth::user()->id)}}">Pedidos</a></li>
-                        <li class="grid"><a href="{{url('/checkout')}}"><img src="{{ asset("img/cart-2.png")}}" alt=""></a></li>
+                        <li class="grid"><a href="{{url('/pedido')}}"><img src="{{ asset("img/cart-2.png")}}" alt=""></a></li>
                         @endif
                     </ul>
                 </div>
@@ -88,10 +88,10 @@
                         <h3>Cuenta</h3>
                         <ul>
                             @if (Auth::guest())
-                                <li><a href="{{url('/cuenta')}}">Crear cuenta</a></li>
+                                <li><a href="{{url('/registroUsuario')}}">Crear cuenta</a></li>
                                 <li><a href="{{url('/log')}}">Iniciar Sesion</a></li>
                             @else
-                                <li><a href="{{url('/checkout')}}">Checkout</a></li> 
+                                <li><a href="{{url('/pedido')}}">Checkout</a></li> 
                             @endif
                             
                         </ul>
@@ -109,7 +109,7 @@
                         <h3>Categorias</h3>
                         <ul>
                             @foreach($categoria as $c)
-                                <li><a href="{{url('/catalogo')}}/{{$c->id_categoria}}">{{$c->categoria}}</a></li>
+                                <li><a href="{{url('/por_Categoria')}}/{{$c->id_categoria}}">{{$c->categoria}}</a></li>
                             @endforeach       
                         </ul>
                     </div>

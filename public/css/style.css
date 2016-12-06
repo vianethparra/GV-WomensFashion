@@ -695,7 +695,7 @@ ul.unit{
 }
 ul.unit li {
 	display:inline-block;
-	width:25%;
+	width:20%;
 	float:left;
 }
  ul.unit li {
@@ -715,7 +715,7 @@ ul.cart-header2{
 }
  ul.cart-header li, ul.cart-header1 li,ul.cart-header2 li{
 	display:inline-block;
-	width:25%;
+	width:20%;
 	float:left;
 }
 ul.cart-header li span,ul.cart-header1 li span,ul.cart-header2 li span{
