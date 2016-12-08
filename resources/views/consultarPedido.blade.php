@@ -10,15 +10,17 @@
 				<th>Fecha</th>
 				<th>ID - Usuario</th>
 				<th>Total - MXN</th>
+				<th>PDF</th>
 			</tr>
 		</thead>
 		<tbody>
-			@forelse($pedidos as $p)
-				<tr>
-					<td>{{$p->id_pedido}}</td>
+			@forelse($pedidos as $key=>$p)
+                                <tr>
+                                        <td>{{++$key}}</td>
 					<td>{{$p->created_at}}</td>
 					<td>{{$p->id_usuario}} - {{$p->nombre}}</td>
 					<td>{{$p->total}}</td>
+					<td><a href="{{url('/pdfPedidos')}}/{{Auth::id()}}/{{$p->id_pedido}}"><span class="glyphicon glyphicon-file" aria-hidden="true"></span></a></td>
 				</tr>
 			@empty
 			<tr>

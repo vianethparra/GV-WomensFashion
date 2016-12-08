@@ -44,6 +44,12 @@
 							<input type="number" value="1" min="1" max="{{$articulo->first()->stock}}" name="cantidad">
 						</div>
 						<div class="clearfix"> </div>
+						<br>
+						@if(!Auth::guest())
+						<p class="availability">+{{$votos}} puntos <span class="color">-{{$dvotos}} puntos</span></p>
+						<a href="{{url('/votar')}}/{{$articulo->first()->id_articulo}}" class="btn btn-default"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true">Votar</span></a>
+						<a href="{{url('/desvotar')}}/{{$articulo->first()->id_articulo}}" class="btn btn-default"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a>
+						@endif
 						@if($articulo->first()->stock==0 OR Auth::guest())
 						<div class="single-but agregar">
 							<input type="submit" value="Agregar" disabled>

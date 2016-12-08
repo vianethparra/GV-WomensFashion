@@ -16,8 +16,8 @@
 		</thead>
 		<tbody>
 			@forelse($pedidos as $p)
-				<tr>
-					<td>{{$p->id_pedido}}</td>
+                                <tr>
+                                        <td>{{$p->id_pedido}}</td>
 					<td>{{$p->created_at}}</td>
 					<td>{{$p->id_usuario}} - {{$p->nombre}}</td>
 					<td>{{$p->total}}</td>

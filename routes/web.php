@@ -11,27 +11,30 @@
 |
 */
 
-Route::get('/', 'controller@principal');
-Route::get('/contacto', 'controller@contacto');
+Route::get('/', 'Controller@principal');
+Route::get('/contacto', 'Controller@contacto');
 
-Route::get('/registroUsuario', 'controller@registroUsuario');
-Route::get('/log', 'controller@log');
+Route::get('/registroUsuario', 'Controller@registroUsuario');
+Route::get('/log', 'Controller@log');
 
-Route::get('/FAQ', 'controller@faq');
-Route::get('/quienesSomos', 'controller@somos');
+Route::get('/FAQ', 'Controller@faq');
+Route::get('/quienesSomos', 'Controller@somos');
 Route::get('/error404', 'articuloController@error404');
 //-----------------------------------------------------------------
 Route::get('/mostrarCatalogo', 'articuloController@mostrarCatalogo');
 Route::get('/por_Categoria/{id}', 'articuloController@por_Categoria');
 Route::get('/articulo/{id}', 'articuloController@articulo');
 Route::post('/por_Articulo', 'articuloController@por_Articulo');
-Route::post('/escribirComentario /{id}', 'articuloController@escribirComentario ');
+Route::post('/escribirComentario/{id}', 'articuloController@escribirComentario');
+Route::get('/votar/{id}', 'articuloController@votar');
+Route::get('/desvotar/{id}', 'articuloController@desvotar');
 //------------------------------------------------------------------
 Route::get('/pedido', 'pedidoController@pedido');
 Route::post('/anadirAlCarrito/{id}', 'pedidoController@anadirAlCarrito');
 Route::post('/cancelarProducto/{id}', 'pedidoController@cancelarProducto');
 Route::post('/confirmarPedido/{id}', 'pedidoController@confirmarPedido');
 Route::get('/consultarPedido/{id}', 'pedidoController@consultarPedido');
+Route::get('/pdfPedidos/{id}/{p}', 'pedidoController@pdfPedidos');
 //------------------------------------------------------------------
 Route::get('/admin', 'adminController@log');
 Route::post('/adminLog', 'adminController@adminlog');
@@ -52,8 +55,3 @@ Route::get('/consultarPedidos', 'adminController@pedidos');
 
 Auth::routes();
 Route::get('/home', 'HomeController@index');
-
-
-Route::get('/sendbasicemail','MailController@basic_email');
-// Route::get('/sendhtmlemail','MailController@html_email');
-// Route::get('/sendattachmentemail','MailController@attachment_email');

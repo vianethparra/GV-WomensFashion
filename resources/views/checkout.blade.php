@@ -32,7 +32,7 @@
 						<div class="close1">
 							<input type="image" border="0" src="img/close-1.png" alt="Submit">
 						</div>
-							<li class="ring-in"><a href="#" >	<img src="img/{{$a->id_articulo}}.png" class="img-responsive" alt=""></a>
+							<li class="ring-in"><a href="{{url('/articulo')}}/{{$a->id_articulo}}" ><img src="img/{{$a->id_articulo}}.png" class="img-responsive" alt=""></a>
 							</li>
 							<li><span>{{$a->nombre}}</span></li>
 							<li><span>${{$a->precio}}</span></li>

@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\correo;
+use Illuminate\Support\Facades\Mail;
 use DB;
+use App;
 use App\pedido;
 use App\carrito;
 use App\usuario;
@@ -126,9 +129,26 @@ class pedidoController extends Controller
         $nuevo->total=$total;
         $nuevo->save();
 
+        $articulos = DB::table('carrito')
+            ->where('id_usuario', '=', $auth_id)
+            ->get();
+
+        foreach ($articulos as $a) {
+            DB::table('articulo')
+                ->where('id_articulo', '=', $a->id_articulo)
+                ->increment('vendido', $a->cantidad);
+        }        
+
         DB::table('carrito')
             ->where('id_usuario', '=', $auth_id)
             ->delete();
+	
+	$email = DB::table('users')
+            ->where('id', '=', $auth_id)
+	        ->select('email')
+            ->get();
+
+	Mail::to($email->first()->email)->send(new correo());
 
         return Redirect('/consultarPedido/'.$auth_id);
     }
@@ -142,5 +162,20 @@ class pedidoController extends Controller
 
         $categoria = categoria::all();
         return view('consultarPedido', compact('pedidos', 'categoria'));
+    }
+
+    public function pdfPedidos($id, $p){
+	$pedido = DB::table('pedido')
+        ->where(function($query) use($id, $p)
+           {
+                $query->where('id_usuario', '=', $id)
+                      ->where('id_pedido', '=', $p);
+            })
+        ->get();	
+
+        $vista=view('pdfPedidos', compact('pedido'));
+        $dompdf=App::make('dompdf.wrapper');
+        $dompdf->loadHTML($vista);
+        return $dompdf->stream();
     }
 }

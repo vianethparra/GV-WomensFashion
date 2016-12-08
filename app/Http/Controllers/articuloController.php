@@ -8,6 +8,7 @@ use DB;
 use App\articulo;
 use App\categoria;
 use App\comentario;
+use App\votos;
 
 class articuloController extends Controller
 {
@@ -57,11 +58,19 @@ class articuloController extends Controller
             ->select('u.name AS usuario', 'c.comentario', 'c.created_at')
             ->get();
 
+        $votos = DB::table('votos')
+            ->where('id_articulo', '=', $id)
+            ->sum('puntuacion');
+
+        $dvotos = DB::table('votos')
+            ->where('id_articulo', '=', $id)
+            ->sum('negativo');
+
         $categoria = categoria::all();
-        return view('articulo', compact('articulo', 'comentario', 'categoria'));
+        return view('articulo', compact('articulo', 'comentario', 'categoria', 'votos', 'dvotos'));
     }
 
-    public function escribircomentario($id, Request $data){
+    public function escribirComentario($id, Request $data){
         $usuario = Auth::user()->id;
         $comentario = $data->input('comentario');
 
@@ -77,5 +86,57 @@ class articuloController extends Controller
     public function error404(){
         $categoria = categoria::all();
         return view('error404', compact('categoria'));
+    }
+
+    public function votar($id){
+        $usuario = Auth::user()->id;
+        $ex = DB::table('votos')
+             ->where(function($query) use($id, $usuario)
+            {
+                $query->where('id_articulo', '=', $id)
+                      ->where('id_usuario', '=', $usuario);
+            })
+            ->get();
+
+        if ($ex->count()==0) {
+            $nuevo = new votos;
+            $nuevo->id_articulo=$id;
+            $nuevo->id_usuario=$usuario;
+            $nuevo->puntuacion=1;
+            $nuevo->save();
+        }else{
+            DB::table('votos')
+            ->where('id_usuario', '=', $usuario)
+            ->update(['puntuacion' => 1,
+                     'negativo' => 0]);
+        }        
+
+        return back();
+    }
+
+    public function desvotar($id){
+        $usuario = Auth::user()->id;
+        $ex = DB::table('votos')
+             ->where(function($query) use($id, $usuario)
+            {
+                $query->where('id_articulo', '=', $id)
+                      ->where('id_usuario', '=', $usuario);
+            })
+            ->get();
+
+        if ($ex->count()==0) {
+            $nuevo = new votos;
+            $nuevo->id_articulo=$id;
+            $nuevo->id_usuario=$usuario;
+            $nuevo->negativo=1;
+            $nuevo->save();
+        }else{
+            DB::table('votos')
+            ->where('id_usuario', '=', $usuario)
+            ->update(['puntuacion' => 0,
+                     'negativo' => 1]);
+        }        
+
+        return back();
     }
 }

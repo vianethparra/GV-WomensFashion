@@ -91,7 +91,7 @@
                                 <li><a href="{{url('/registroUsuario')}}">Crear cuenta</a></li>
                                 <li><a href="{{url('/log')}}">Iniciar Sesion</a></li>
                             @else
-                                <li><a href="{{url('/pedido')}}">Checkout</a></li> 
+                                <li><a href="{{url('/pedido')}}">Carrito</a></li> 
                             @endif
                             
                         </ul>
